@@ -20,23 +20,6 @@ This project implements an automated CI/CD release pipeline for a Node.js web ap
 
 ## Architecture Flow
 
-```mermaid
-flowchart LR
-    Dev([Developer]) -- "git push" --> Source[(GitHub Repository)]
-    
-    subgraph Pipeline [AWS CodePipeline Orchestration]
-        direction TB
-        Source -- "Webhook Trigger" --> Build[AWS CodeBuild\n- Executes tests\n- Isolates App Files]
-        Build -- "Outputs BuildArtifact" --> Staging{Elastic Beanstalk\nStaging Environment}
-        Staging -- "Promotes BuildArtifact" --> Prod{Elastic Beanstalk\nProduction Environment}
-    end
-
-    User([End Users]) -. "HTTPS Request" .-> Prod
-
-    classDef default fill:#232F3E,stroke:#FF9900,stroke-width:2px,color:white;
-    classDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:black;
-    class Source,Build,Staging,Prod aws;
-```
 <!-- Cntrl+click cicd.png -->
 
 ![alt text](cicd.png) 
